@@ -9,6 +9,12 @@ import UIKit
 
 class ViewController: UIViewController
 {
+    
+    lazy var game : Concentration = {
+       return Concentration(numberOfPairsOfCards: (cardButtons.count + 1)/2)
+    }()
+
+
     var flipCount = 0 {
         didSet {
             flipCountLabel.text = "Flips: \(flipCount)"
@@ -26,7 +32,7 @@ class ViewController: UIViewController
     @IBAction func touchCard(_ sender: UIButton) {
         flipCount += 1
         if let cardNumber = cardButtons.firstIndex(of: sender) {
-            flipCard(withEmoji: emojiChoices[cardNumber], on: sender)
+            game.chooseCard(at: cardNumber)
         } else {
         print("chosen card was not in cardButtons")
         }
